@@ -54,3 +54,16 @@ export const insertBooksToDb = (conn: Mysql.Connection, books: Books, res: Respo
     }
   );
 }
+
+export const getBooksById = (conn: Mysql.Connection, id: number, res: Response) => {
+  conn.query(
+    selectBooksById(id),
+    (err: ErrorRequestHandler, results: ErrorRequestHandler) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send(results);
+      }
+    }
+  );
+}

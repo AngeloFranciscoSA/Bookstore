@@ -1,7 +1,7 @@
 import express, { query, Request, Response } from "express";
 import { conn } from "../database/connection";
 import { Books } from "../interfaces/books";
-import { insertBooksToDb, listBooks } from "../models/books";
+import { insertBooksToDb, listBooks, getBooksById } from "../models/books";
 
 export const booksController = express.Router();
 
@@ -14,4 +14,7 @@ booksController.post("/", (req: Request, res: Response) => {
   insertBooksToDb(conn, books, res);
 });
 
-
+booksController.get("/:id", (req: Request, res: Response) => {
+    const id = req.params.id;
+    getBooksById(conn, parseInt(id), res);
+});
